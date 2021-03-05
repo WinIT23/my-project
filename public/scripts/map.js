@@ -1,5 +1,5 @@
 let map;
-const BASE_URL = 'http://localhost:3030'
+const BASE_URL = 'https://509eae409cc8.ngrok.io'
 let markers = [];
 let activities;
 
@@ -10,8 +10,7 @@ function initMap() {
   });
 };
 
-axios.get(`${BASE_URL}/activities`)
-  .then(res => {
+axios.get(`${BASE_URL}/activities`).then(res => {
     activities = res.data;
     for (let i = 0; i < 2; i++) {
       zoomIn(map);

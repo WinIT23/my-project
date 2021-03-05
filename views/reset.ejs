@@ -1,0 +1,14 @@
+<h1>Reset Password</h1>
+<h3>Hey <%= user.name %>... It seems you have forgotten your password..</h3>
+<h3>Let us help you...</h3>
+<form action="/auth/reset/<%= user._id %>" method="POST">
+  <div>
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required>
+  </div>
+  <div>
+    <label for="cnf-password">Re-write Password</label>
+    <input type="password" id="cnf-password" name="cnf-password" required>
+  </div>
+  <button type="submit">Reset</button>
+</form>
