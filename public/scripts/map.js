@@ -1,5 +1,5 @@
 let map;
-const BASE_URL = 'https://509eae409cc8.ngrok.io'
+const BASE_URL = 'https://386ca3be2e2f.ngrok.io';
 let markers = [];
 let activities;
 

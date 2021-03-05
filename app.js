@@ -35,7 +35,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride('_method'));
 
-app.use(function (req, res, next) {
+app.use(function (_req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
@@ -51,5 +51,5 @@ app.use('/cameras', cameraRouter);
 const { PORT } = process.env;
 
 configDb()
-  .then(_ => app.listen(PORT, _ => console.log(`app is running at http://localhost:${PORT}`)))
+  .then(_ => app.listen(PORT, _ => console.log(`app is running at ${process.env.HOST_URL}`)))
   .catch(_ => console.log('Cannot start Server'));

@@ -5,7 +5,7 @@ const Record = new Schema({
   _id: Types.ObjectId,
   startTime: Date,
   endTime: Date,
-  location: Location,
+  location: Object,
   isComplete: Boolean
 });
 
