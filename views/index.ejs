@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Simple Map</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+    integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/stylesheets/app.css">
+</head>
+
+<body>
+  <div id="map"></div>
+  <button id="show">Show</button>
+  <button id="hide">Hide</button>
+  <button id="refresh">Refresh</button>
+
+  <script src="/scripts/map.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&callback=initMap&libraries=&v=weekly"></script>
+</body>
+
+</html>
