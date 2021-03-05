@@ -1,5 +1,7 @@
+import { hash } from 'bcrypt';
 import mongoose from 'mongoose';
 import dateFormat from 'dateformat';
+import User from '../models/user.js';
 import { transporter, verificationMail } from '../config/mailerConfig.js';
 
 let getEmailForm = (_req, res) => {
@@ -29,6 +31,19 @@ let logoutUser = (req, res) => {
 };
 
 let resetPassword = async (req, res) => {
+  const id = req.params.userId;
+  const hashedPassword = await hash(req.body.password, 10)
+  const user = await User.findById(id);
+
+  if (user) {
+    user.password = hashedPassword;
+    await user.save();
+  }
+
+  res.redirect('/auth/login');
+}
+
+let resetPasswordMail = async (req, res) => {
   const date = dateFormat(Date.now(), "dddd, mmmm dS, yyyy, h:MM:ss TT");
   await User.findOne({ email: req.body.email })
     .then(user => {
@@ -107,6 +122,7 @@ export {
   getSignupForm,
   logoutUser,
   resetPassword,
+  resetPasswordMail,
   sendVerificationMail,
   signupUser,
   verifyUser 

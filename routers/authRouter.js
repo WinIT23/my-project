@@ -1,9 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import { hash } from 'bcrypt';
 import { resolve } from 'path';
 import passport from 'passport';
-import User from '../models/user.js';
 import { checkNotAuthenticated } from '../middlewares/authentication.js';
 import {
   getEmailForm,
@@ -12,6 +10,7 @@ import {
   getSignupForm,
   logoutUser,
   resetPassword,
+  resetPasswordMail,
   sendVerificationMail,
   signupUser,
   verifyUser 
@@ -34,22 +33,11 @@ router.get('/verify/:userId', verifyUser);
 
 router.get('/reset', getEmailForm);
 
-router.post('/reset', resetPassword);
+router.post('/reset', resetPasswordMail);
 
 router.get('/reset/:userId', getResetPasswordForm);
 
-router.post('/reset/:userId', async (req, res) => {
-  const id = req.params.userId;
-  const hashedPassword = await hash(req.body.password, 10)
-  const user = await User.findById(id);
-
-  if (user) {
-    user.password = hashedPassword;
-    await user.save();
-  }
-
-  res.redirect('/auth/login');
-});
+router.post('/reset/:userId', resetPassword);
 
 router.get('/register', checkNotAuthenticated, getSignupForm)
 
