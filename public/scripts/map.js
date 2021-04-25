@@ -8,6 +8,7 @@ function initMap() {
     center: { lat: 28.7041, lng: 77.1025 },
     zoom: 1
   });
+  setTimeout(() => {}, 100);
 };
 
 axios.get(`${BASE_URL}activities`).then(res => {

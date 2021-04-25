@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import Record from '../models/record.js';
 
 let getRecord = async (req, res) => {
+  updateRecordStatus();
   const { id } = req.params;
   const record = await Record.findById(id);
   if (record) res.status(200).json(record);
@@ -11,7 +12,7 @@ let getRecord = async (req, res) => {
 let getRecords = async (_req, res) => {
   updateRecordStatus();
   const records = await Record
-    .find({ isComplete: false })
+    .find()
     .sort([['time', 1]]);
 
   res.status(200).json(records);
@@ -38,19 +39,18 @@ let updateRecordStatus = async () => {
   const currentTime = new Date();
 
   records.forEach(record => {
-    console.log(`Record Time : ${record.endTime} | currentTime : ${currentTime} | Status : ${record.endTime < currentTime}`);
+    const { _id, startTime, endTime, location } = record;
     if (record.endTime < currentTime) {
       Record.findByIdAndUpdate(
         record._id,
         {
-          _id: record._id,
-          startTime: record.startTime,
-          endTime: record.endTime,
-          location: record.location,
+          _id,
+          startTime,
+          endTime,
+          location,
           isComplete: true
         }
       )
-        .then(_ => console.log({ message: 'Records status updated sucessfully...'}))
         .catch(err => console.log(err));
     }
   })
@@ -59,5 +59,6 @@ let updateRecordStatus = async () => {
 export {
   getRecords,
   getRecord,
-  postRecord
+  postRecord,
+  updateRecordStatus
 };
