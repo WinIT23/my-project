@@ -1,5 +1,5 @@
 let map;
-const BASE_URL = 'https://386ca3be2e2f.ngrok.io';
+const BASE_URL = window.location.href;
 let markers = [];
 let activities;
 
@@ -10,7 +10,7 @@ function initMap() {
   });
 };
 
-axios.get(`${BASE_URL}/activities`).then(res => {
+axios.get(`${BASE_URL}activities`).then(res => {
     activities = res.data;
     for (let i = 0; i < 2; i++) {
       zoomIn(map);
@@ -26,7 +26,7 @@ setTimeout(_ =>
   document.querySelector('.dismissButton').click(), 1500);
 
 const refreshMap = async () => {
-  const res = await axios.get(`${BASE_URL}/activities`)
+  const res = await axios.get(`${BASE_URL}activities`)
   activities = res.data;
   addMarkersToArray();
   map.panTo(markers[markers.length - 1].getPosition());
@@ -46,6 +46,7 @@ const addMarkersToArray = () => {
       map
     });
     google.maps.event.addListener(marker, 'click', () => {
+      // Add image on side..
       zoomIn(map);
       map.setCenter(marker.getPosition());
     });

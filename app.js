@@ -8,6 +8,7 @@ import methodOverride from 'method-override';
 import express, { urlencoded } from 'express';
 import authRouter from './routers/authRouter.js';
 import indexRouter from './routers/indexRouter.js';
+import recordRouter from './routers/recordRouter.js';
 import cameraRouter from './routers/cameraRouter.js';
 import activityRouter from './routers/activityRouter.js';
 import initializePassport from './config/passportConfig.js';
@@ -47,6 +48,7 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/activities', activityRouter);
 app.use('/cameras', cameraRouter);
+app.use('/records', recordRouter)
 
 const { PORT } = process.env;
 

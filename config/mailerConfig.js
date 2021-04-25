@@ -5,13 +5,13 @@ dotenv.config();
 let transporter = createTransport({
   service: 'outlook',
   auth: {
-    user: 'vinit.chauhan001@outlook.com',
+    user: 'adit.17005@outlook.com',
     pass: process.env.EMAIL_PASSWD
   }
 });
 
 let verificationMail = {
-  from: 'vinit.chauhan001@outlook.com',
+  from: 'adit.17005@outlook.com',
   to: 'chauhanvineet22@yahoo.com',
   subject: 'Email Verification | Mob Activity Detection',
   text: ''

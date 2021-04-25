@@ -108,7 +108,6 @@ let verifyUser = async (req, res) => {
   if (user) {
     user.isMailVerified = true;
     await user.save();
-    res.render('user', { user });
     res.redirect('/');
   } else {
     res.redirect('/auth/login');
