@@ -7,6 +7,7 @@ const Activity = new Schema({
   camera: { type: Types.ObjectId, ref: 'Cameras' },
   time: Date,
   personCount: Number,
+  isResolved: Boolean,
   isInRecord: Boolean
 });
 
