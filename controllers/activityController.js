@@ -61,7 +61,7 @@ const postActivity = async (req, res) => {
       personCount,
       time,
       isInRecord,
-      isResolved: false
+      isResolved: isInRecord
     });
     activity.save()
       .then(_ => res.status(200).json({ message: 'Activity created sucessfully' }))

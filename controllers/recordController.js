@@ -1,7 +1,18 @@
 import mongoose from 'mongoose';
 import Record from '../models/record.js';
 
-let getRecord = async (req, res) => {
+const deleteRecord = async (req, res) => {
+  const { id } = req.params;
+  await Record.findByIdAndDelete(id)
+    .then(doc => {
+      (doc)
+      ? res.status(200).json({ message: 'Record deleted sucessfully' })
+      : res.status(404).json({ message: 'Record not found' });
+    })
+    .catch(_ => res.status(500).json({ message: 'Record can\'t be deleted' }));
+};
+
+const getRecord = async (req, res) => {
   updateRecordStatus();
   const { id } = req.params;
   const record = await Record.findById(id);
@@ -9,7 +20,7 @@ let getRecord = async (req, res) => {
   else res.status(404).json({ message: 'Record not found' });
 };
 
-let getRecords = async (_req, res) => {
+const getRecords = async (_req, res) => {
   updateRecordStatus();
   const records = await Record
     .find()
@@ -18,21 +29,40 @@ let getRecords = async (_req, res) => {
   res.status(200).json(records);
 }
 
-let postRecord = async (req, res) => {
-  const { startTime, endTime, location, isComplete } = req.body;
+const postRecord = async (req, res) => {
+  const { startTime, endTime, location } = req.body;
   const record = new Record({
     _id: mongoose.Types.ObjectId(),
     startTime,
     endTime,
     location,
-    isComplete
+    isComplete: false
   });
   record.save()
     .then(_ => res.status(200).json({ message: 'Record created sucessfully...' }))
     .catch(err => console.log(err));
 };
 
-let updateRecordStatus = async () => {
+const updateRecord = async (req, res) => {
+  const { id } = req.params;
+  const { startTime, endTime, location } = req.body;
+  const currentTime = new Date();
+
+  await Record.findByIdAndUpdate(id, {
+    startTime,
+    endTime,
+    location,
+    isComplete: (endTime < currentTime)
+  })
+    .then(doc => {
+      (doc)
+        ? res.status(200).json({ message: 'Record updated sucessfully' })
+        : res.status(404).json({ message: 'Record not found' });
+    })
+    .catch(_ => res.status(500).json({ message: 'Record can\'t be updated' }));
+};
+
+const updateRecordStatus = async () => {
   const records = await Record
     .find({ isComplete: false })
 
@@ -57,8 +87,10 @@ let updateRecordStatus = async () => {
 };
 
 export {
+  deleteRecord,
   getRecords,
   getRecord,
   postRecord,
+  updateRecord,
   updateRecordStatus
 };
