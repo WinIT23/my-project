@@ -1,19 +1,19 @@
 import mongoose from 'mongoose';
 import Camera from '../models/camera.js';
 
-let getCamera = async (req, res) => {
+const getCamera = async (req, res) => {
   const { id } = req.params;
   const camera = await Camera.findById(id);
   if (camera) res.status(200).json(camera);
   else res.status(404).json({ message: 'Camera not found' });
 };
 
-let getCameras = async (_req, res) => {
+const getCameras = async (_req, res) => {
   const activities = await Camera.find();
   res.status(200).json(activities);
 }
 
-let postCamera = async (req, res) => {
+const postCamera = async (req, res) => {
   const { location } = req.body;
     const camera = new Camera({
       _id: mongoose.Types.ObjectId(),

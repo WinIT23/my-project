@@ -4,7 +4,9 @@ import { getCameras, getCamera, postCamera } from '../controllers/cameraControll
 const router = express.Router();
 
 router.get('/', getCameras);
+
 router.get('/:id', getCamera);
+
 router.post('/new', postCamera);
 
 export default router;

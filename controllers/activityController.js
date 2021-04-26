@@ -14,8 +14,7 @@ const deleteActivity = async (req, res) => {
         : res.status(404).json({ message: 'Activity not found' });
     })
     .catch(_ => res.status(500).json({ message: 'Activity can\'t be deleted' }));
-
-}
+};
 
 const getActivity = async (req, res) => {
   const { id } = req.params;
@@ -36,7 +35,7 @@ const getActivities = async (_req, res) => {
     ? res.status(200).json(activities)
     : res.status(404).json({ message: 'No Activities found' });
   // Activity.find({ location: { $geoWithin: { $centerSphere: [[-73.93414657, 40.82302903], [miles] / 3963.2] } } })
-}
+};
 
 const postActivity = async (req, res) => {
   updateRecordStatus();
@@ -88,7 +87,7 @@ const updateActivity = (req, res) => {
         : res.status(404).json({ message: 'Activity not found' });
     })
     .catch(_ => res.status(500).json({ message: 'Activity can\'t be updated' }));
-}
+};
 
 export {
   deleteActivity,

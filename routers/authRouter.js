@@ -28,19 +28,14 @@ router.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 }));
 
 router.post('/verify', sendVerificationMail);
-
 router.get('/verify/:userId', verifyUser);
 
 router.get('/reset', getEmailForm);
-
 router.post('/reset', resetPasswordMail);
-
 router.get('/reset/:userId', getResetPasswordForm);
-
 router.post('/reset/:userId', resetPassword);
 
 router.get('/register', checkNotAuthenticated, getSignupForm)
-
 router.post('/register', checkNotAuthenticated, signupUser);
 
 router.delete('/logout', logoutUser);

@@ -27,7 +27,7 @@ const getRecords = async (_req, res) => {
     .sort([['time', 1]]);
 
   res.status(200).json(records);
-}
+};
 
 const postRecord = async (req, res) => {
   const { startTime, endTime, location } = req.body;

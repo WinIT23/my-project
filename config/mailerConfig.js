@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import { createTransport } from 'nodemailer';
 dotenv.config();
 
-let transporter = createTransport({
+const transporter = createTransport({
   service: 'outlook',
   auth: {
     user: 'adit.17005@outlook.com',
@@ -10,7 +10,7 @@ let transporter = createTransport({
   }
 });
 
-let verificationMail = {
+const verificationMail = {
   from: 'adit.17005@outlook.com',
   to: 'chauhanvineet22@yahoo.com',
   subject: 'Email Verification | Mob Activity Detection',

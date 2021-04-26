@@ -3,7 +3,7 @@ import { resolve } from 'path';
 
 dotenv.config({ path: resolve() + '/.env' });
 
-let getIndex = (req, res) => {
+const getIndex = (req, res) => {
   res.render('index', { MAPS_API_KEY: process.env.MAPS_API_KEY, user: req.user });
 };
 

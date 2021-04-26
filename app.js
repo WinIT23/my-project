@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import passport from 'passport';
 import flash from 'express-flash';
 import session from 'express-session';
-import configDb from './config/mongodb.js';
+import configDb from './config/mongodbConfig.js';
 import methodOverride from 'method-override';
 import express, { urlencoded } from 'express';
 import authRouter from './routers/authRouter.js';

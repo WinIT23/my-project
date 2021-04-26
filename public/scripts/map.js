@@ -56,7 +56,7 @@ const addMarkersToArray = () => {
 }
 
 const zoomIn = (map) => {
-  let zoomLevel = map.getZoom();
+  const zoomLevel = map.getZoom();
   zoomLevel < 22
     ? map.setZoom(zoomLevel + 2)
     : map.setZoom(21);
