@@ -32,8 +32,8 @@ const getActivities = async (_req, res) => {
     .populate('camera')
     .sort([['time', 1]]);
   (activities.length)
-    ? res.status(200).json(activities)
-    : res.status(404).json({ message: 'No Activities found' });
+    ? res.status(200).render('activities', { activities })
+    : res.status(404)
   // Activity.find({ location: { $geoWithin: { $centerSphere: [[-73.93414657, 40.82302903], [miles] / 3963.2] } } })
 };
 
@@ -75,11 +75,11 @@ const postActivity = async (req, res) => {
 
 const updateActivity = (req, res) => {
   const { id } = req.params;
-  const { personCount, isResolved } = req.body; 
+  const { personCount, isResolved } = req.body;
 
-  Activity.findByIdAndUpdate(id, { 
-    personCount, 
-    isResolved 
+  Activity.findByIdAndUpdate(id, {
+    personCount,
+    isResolved
   })
     .then(doc => {
       (doc)

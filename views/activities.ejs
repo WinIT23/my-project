@@ -1,0 +1,14 @@
+<%- include('./partials/header-map') %>
+
+  <body>
+    <div>
+      <% activities?.forEach( activity=> { %>
+        <div>Location : <%= activity.camera.location.coordinates[0] %> <%= activity.camera.location.coordinates[1] %> </div>
+        <div>Person Count : <%= activity.personCount %> </div>
+        <hr>
+        <button>Resolve</button>
+        <% }) %>
+    </div>
+  </body>
+
+  </html>

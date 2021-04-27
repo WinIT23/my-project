@@ -1,4 +1,5 @@
 import express from 'express';
+import { checkAuthenticated } from '../middlewares/authentication.js';
 import {
   deleteActivity,
   getActivities,
@@ -9,11 +10,11 @@ import {
 
 const router = express.Router();
 
-router.get('/', getActivities);
+router.get('/', checkAuthenticated, getActivities);
 
-router.get('/:id', getActivity);
-router.put('/:id', updateActivity);
-router.delete('/:id', deleteActivity);
+router.get('/:id', checkAuthenticated, getActivity);
+router.put('/:id', checkAuthenticated, updateActivity);
+router.delete('/:id', checkAuthenticated, deleteActivity);
 
 router.post('/new', postActivity);
 
