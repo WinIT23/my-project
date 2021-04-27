@@ -6,8 +6,8 @@ const deleteRecord = async (req, res) => {
   await Record.findByIdAndDelete(id)
     .then(doc => {
       (doc)
-      ? res.status(200).json({ message: 'Record deleted sucessfully' })
-      : res.status(404).json({ message: 'Record not found' });
+        ? res.status(200).json({ message: 'Record deleted sucessfully' })
+        : res.status(404).json({ message: 'Record not found' });
     })
     .catch(_ => res.status(500).json({ message: 'Record can\'t be deleted' }));
 };
@@ -26,7 +26,7 @@ const getRecords = async (_req, res) => {
     .find()
     .sort([['time', 1]]);
 
-  res.status(200).json(records);
+  res.status(200).render('records', { records });
 };
 
 const postRecord = async (req, res) => {

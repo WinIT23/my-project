@@ -1,0 +1,17 @@
+<%- include('./partials/header-map') %>
+
+  <body>
+    <div>
+      <% records?.forEach( record=> { %>
+        <div>Location : <%= record.location.coordinates[0] %> <%= record.location.coordinates[1] %>
+        </div>
+        <div>Start Time : <%= record.startTime %> </div>
+        <div>End Time : <%= record.endTime %> </div>
+        <button>Update</button>
+        <button>Delete</button>
+        <hr>
+        <% }) %>
+    </div>
+  </body>
+
+  </html>

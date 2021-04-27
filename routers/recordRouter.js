@@ -1,4 +1,5 @@
 import express from 'express';
+import { checkAuthenticated } from '../middlewares/authentication.js';
 import {
   deleteRecord,
   getRecords,
@@ -9,11 +10,11 @@ import {
 
 const router = express.Router();
 
-router.get('/', getRecords);
+router.get('/', checkAuthenticated, getRecords);
 
-router.get('/:id', getRecord);
-router.put('/:id', updateRecord);
-router.delete('/:id', deleteRecord);
+router.get('/:id', checkAuthenticated, getRecord);
+router.put('/:id', checkAuthenticated, updateRecord);
+router.delete('/:id', checkAuthenticated, deleteRecord);
 
 router.post('/new', postRecord);
 
