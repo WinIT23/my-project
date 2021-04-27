@@ -12,6 +12,9 @@ import recordRouter from './routers/recordRouter.js';
 import cameraRouter from './routers/cameraRouter.js';
 import activityRouter from './routers/activityRouter.js';
 import initializePassport from './config/passportConfig.js';
+import cameraRouterAPI from './routers/api/cameraRouter.js';
+import recordRouterAPI from './routers/api/recordRouter.js';
+import activityRouterAPI from './routers/api/activityRouter.js';
 
 initializePassport(
   passport,
@@ -49,6 +52,10 @@ app.use('/auth', authRouter);
 app.use('/activities', activityRouter);
 app.use('/cameras', cameraRouter);
 app.use('/records', recordRouter)
+
+app.use('/api/activities', activityRouterAPI);
+app.use('/api/cameras', cameraRouterAPI);
+app.use('/api/records', recordRouterAPI)
 
 const { PORT } = process.env;
 

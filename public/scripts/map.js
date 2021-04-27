@@ -11,7 +11,7 @@ function initMap() {
   setTimeout(() => {}, 100);
 };
 
-axios.get(`${BASE_URL}activities`).then(res => {
+axios.get(`${BASE_URL}api/activities`).then(res => {
     activities = res.data;
     for (let i = 0; i < 2; i++) {
       zoomIn(map);
@@ -27,7 +27,7 @@ setTimeout(_ =>
   document.querySelector('.dismissButton').click(), 1500);
 
 const refreshMap = async () => {
-  const res = await axios.get(`${BASE_URL}activities`)
+  const res = await axios.get(`${BASE_URL}api/activities`)
   activities = res.data;
   addMarkersToArray();
   map.panTo(markers[markers.length - 1].getPosition());
