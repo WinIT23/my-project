@@ -37,6 +37,13 @@ const getActivities = async (_req, res) => {
   // Activity.find({ location: { $geoWithin: { $centerSphere: [[-73.93414657, 40.82302903], [miles] / 3963.2] } } })
 };
 
+const getActivitiesList = async () => {
+  return await Activity
+    .find({ isInRecord: false, isResolved: false })
+    .populate('camera')
+    .sort([['time', 1]]);
+};
+
 const postActivity = async (req, res) => {
   updateRecordStatus();
 
@@ -73,6 +80,15 @@ const postActivity = async (req, res) => {
   }
 };
 
+const resolveActivity = (req, res) => {
+  const { id } = req.params;
+  Activity.findByIdAndUpdate(id,
+    { isResolved: true }
+  )
+    .then(_ => res.redirect('/'))
+    .catch(_ => res.status(500).json({ message: 'Activity can\'t be updated' }));
+}
+
 const updateActivity = (req, res) => {
   const { id } = req.params;
   const { personCount, isResolved } = req.body;
@@ -92,7 +108,9 @@ const updateActivity = (req, res) => {
 export {
   deleteActivity,
   getActivities,
+  getActivitiesList,
   getActivity,
   postActivity,
+  resolveActivity,
   updateActivity
 };

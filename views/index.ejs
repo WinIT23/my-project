@@ -1,8 +1,11 @@
 <%- include('./partials/header-map') %>
 <body>
-  <div>
-    <h1>Hi <%= user?.name %></h1>
-    <hr>
+  <div class="">
+    <form class="frm" action="/auth/logout?_method=DELETE" method="POST">
+      <button id="logout" class="bg-red" type="submit">Log Out</button>
+    </form>
+    <h1 class="title">Hi, <%= user?.name %>
+    </h1>
     <form action="/auth/verify" method="POST">
       <p>
         <%= user.isMailVerified ? "Email is verified" : "Please Verify Mail" %>
@@ -10,17 +13,20 @@
       <button <%=user.isMailVerified ? "hidden" : "" %> type="submit">Send Mail</button>
     </form>
     <hr>
-    <form action="/auth/logout?_method=DELETE" method="POST">
-      <button type="submit">Log Out</button>
-    </form>
   </div>
+  
+  <div class="container-inline">
+    <span class="map-container">
+      <div id="map" style="display: inline-block;"></div>
+      <button id="show">Show</button>
+      <button id="hide">Hide</button>
+      <button id="refresh">Refresh</button>
+    </span>
 
-  <div id="map"></div>
-  <button id="show">Show</button>
-  <button id="hide">Hide</button>
-  <button id="refresh">Refresh</button>
-
-  <hr>
+    <div class="activity-container">
+      <%- include('./activities') %>
+    </div>
+  </div>
 
   <script src="/scripts/map.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&callback=initMap&libraries=&v=weekly"></script>

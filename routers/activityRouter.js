@@ -5,6 +5,7 @@ import {
   getActivities,
   getActivity,
   postActivity,
+  resolveActivity,
   updateActivity
 } from '../controllers/activityController.js';
 
@@ -15,6 +16,8 @@ router.get('/', checkAuthenticated, getActivities);
 router.get('/:id', checkAuthenticated, getActivity);
 router.put('/:id', checkAuthenticated, updateActivity);
 router.delete('/:id', checkAuthenticated, deleteActivity);
+
+router.post('/:id/resolve', checkAuthenticated, resolveActivity);
 
 router.post('/new', postActivity);
 
