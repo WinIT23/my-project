@@ -2,16 +2,20 @@
 
   <body>
     <div>
-      <% records?.forEach( record=> { %>
-        <div>Location : <%= record.location.coordinates[0] %> <%= record.location.coordinates[1] %>
+      <% records?.forEach( record => { %>
+        <div>Location : <span><%= record.location.coordinates[0] %> <%= record.location.coordinates[1] %></span>
         </div>
-        <div>Start Time : <%= record.startTime %> </div>
-        <div>End Time : <%= record.endTime %> </div>
-        <button>Update</button>
-        <button>Delete</button>
+        <div>Start Time : <span><%= record.startTime %></span> </div>
+        <div>End Time : <span><%= record.endTime %></span> </div>
+        <div>Description: <span><%= record.description %></span></div>
+        <span id="btn-list">
+          <form class="frm" action="/records/<%= record._id %>?_method=DELETE" method="POST">
+            <a class="btn bg-blue" href="/records/<%= record._id %>/edit">Update</a>
+            <button class="bg-red" type="submit">Delete</button>
+          </form>
+        </span>
         <hr>
         <% }) %>
     </div>
   </body>
-
-  </html>
+</html>

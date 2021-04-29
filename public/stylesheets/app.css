@@ -1,17 +1,120 @@
+*{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 html,
 body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+  padding: 0 20px;
+  overflow: auto;
 }
 
 #map {
-  height: 50%;
+  /* Add media query here... */
+  height: 500px;
+  width: 700px;
+  margin: 20px;
+  border-radius: 10px;
+}
+
+button, .btn {
+  font-weight: normal;
+  font-size: medium;
+  color: #5c78c5;
+  background-color: white;
+  border: 2px solid #5c78c5;
+  border-radius: 5px;
+}
+
+.btn {
+  padding: 9px 25px;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+button{
+  width: 100px;
+  height: 40px;
+  margin: 10px;
+}
+button:hover {
+  background-color: #5c78c54d;
+}
+
+.bg-blue {
+  background-color: #5c78c5;
+  color: white;
+  border: none;
+}
+.bg-blue:hover {
+  background-color: #526aad;
+}
+
+.bg-red {
+  background-color: #c55c5c;
+  color: white;
+  border: none;
+}
+.bg-red:hover {
+  background-color: #ad5252;
+}
+
+.frm button{
+  margin: 20px;
+}
+
+.frm label {
+  font-weight: bold;
+  font-size: medium;
+}
+
+.frm input {
+  width: 500px;
+  display: block;
+  margin: 10px;
+  padding: 10px;
+  font-size: medium;
+  border: 2px solid #5c78c5;
+  border-radius: 5px;
+}
+
+.container-inline {
+  display: inline-block;
+  align-content: center;
+  overflow: auto;
+  margin: 0 auto;
+}
+
+.map-container {
+  display: inline;
   width: 50%;
 }
 
-button {
-  width: 80px;
-  height: 30px;
-  margin: 10px;
+.activity-container {
+  display: inline;
+  width: 50%;
+}
+
+#logout {
+  float: right;
+}
+
+.card {
+  width: 400px;
+  background-color: #fdfdfd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 5px 5px 10px #d1d0d0a0;
+  margin: 20px;
+}
+
+.title {
+  display: inline-block;
+  margin: 20px 0;
+}
+
+#btn-list .frm a,
+#btn-list .frm button {
+  margin: 20px;
+  display: inline-block;
+  align-items: center;
 }

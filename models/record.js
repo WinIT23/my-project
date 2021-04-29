@@ -6,7 +6,8 @@ const Record = new Schema({
   startTime: Date,
   endTime: Date,
   location: Object,
-  isComplete: Boolean
+  isComplete: Boolean,
+  description: String
 });
 
 export default model('Records', Record);

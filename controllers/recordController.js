@@ -6,7 +6,7 @@ const deleteRecord = async (req, res) => {
   await Record.findByIdAndDelete(id)
     .then(doc => {
       (doc)
-        ? res.status(200).json({ message: 'Record deleted sucessfully' })
+        ? res.redirect('/records')
         : res.status(404).json({ message: 'Record not found' });
     })
     .catch(_ => res.status(500).json({ message: 'Record can\'t be deleted' }));
@@ -16,8 +16,10 @@ const getRecord = async (req, res) => {
   updateRecordStatus();
   const { id } = req.params;
   const record = await Record.findById(id);
-  if (record) res.status(200).json(record);
-  else res.status(404).json({ message: 'Record not found' });
+  if (record)
+    res.status(200).render('record', { record });
+  else
+    res.status(404).json({ message: 'Record not found' });
 };
 
 const getRecords = async (_req, res) => {
@@ -29,34 +31,60 @@ const getRecords = async (_req, res) => {
   res.status(200).render('records', { records });
 };
 
+const getNewRecordForm = (_req, res) => {
+  res.render('recordsForm', { isEdit: false })
+}
+
+const getUpdateRecord = async (req, res) => {
+  const { id } = req.params;
+  const { _id, startTime, endTime, location, description } = await Record.findById(id);
+  const record = {
+    _id,
+    startTime: startTime.toISOString().split('.')[0],
+    endTime: endTime.toISOString().split('.')[0],
+    location,
+    description
+  };
+  res.render('recordsForm', { isEdit: true, record })
+}
+
 const postRecord = async (req, res) => {
-  const { startTime, endTime, location } = req.body;
+  const { startTime, endTime, locationStr, description } = req.body;
+  const location = {
+    type: "Point",
+    coordinates: [...locationStr.split(' ').map(coord => parseFloat(coord))]
+  }
   const record = new Record({
     _id: mongoose.Types.ObjectId(),
     startTime,
     endTime,
     location,
+    description,
     isComplete: false
   });
   record.save()
-    .then(_ => res.status(200).json({ message: 'Record created sucessfully...' }))
+    .then(doc => res.redirect(`/records/${doc._id}`))
     .catch(err => console.log(err));
 };
 
 const updateRecord = async (req, res) => {
   const { id } = req.params;
-  const { startTime, endTime, location } = req.body;
+  const { startTime, endTime, locationStr, description } = req.body;
   const currentTime = new Date();
-
+  const location = {
+    type: "Point",
+    coordinates: [...locationStr.split(' ').map(coord => parseFloat(coord))]
+  }
   await Record.findByIdAndUpdate(id, {
     startTime,
     endTime,
     location,
+    description,
     isComplete: (endTime < currentTime)
   })
     .then(doc => {
       (doc)
-        ? res.status(200).json({ message: 'Record updated sucessfully' })
+        ? res.redirect(`/records/${id}`) // redirect records/:id
         : res.status(404).json({ message: 'Record not found' });
     })
     .catch(_ => res.status(500).json({ message: 'Record can\'t be updated' }));
@@ -90,6 +118,8 @@ export {
   deleteRecord,
   getRecords,
   getRecord,
+  getNewRecordForm,
+  getUpdateRecord,
   postRecord,
   updateRecord,
   updateRecordStatus

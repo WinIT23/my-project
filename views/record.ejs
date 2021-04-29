@@ -1,0 +1,17 @@
+<%- include('./partials/header-map') %>
+
+  <body>
+    <div>
+        <label for="location">Location</label>
+          <%= record.location.coordinates[0] %> <%= record.location.coordinates[1] %>
+        <label for="startTime">Starting Time</label> 
+          <%= record.startTime %>
+        <label for="endTime">End Time</label>
+          <%= record.endTime %>
+        <label for="description">Description</label>
+          <%= record.description %>
+      </form>
+    </div>
+  </body>
+
+  </html>

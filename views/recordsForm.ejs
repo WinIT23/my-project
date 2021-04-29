@@ -1,0 +1,19 @@
+<%- include('./partials/header-map') %>
+  <body>
+    <div>
+      <form class="frm" action="/records/<%if (isEdit) { %><%= record._id %>?_method=PUT<% } %>" method="POST">
+        <input type="hidden" id="timezone" name="timezone" value="+05:30">
+        <label for="location">Location</label>
+          <input type="text" name="locationStr" <%if (isEdit) { %> value="<%= record.location.coordinates[0] %> <%= record.location.coordinates[1] %>" <% } %>>
+        <label for="startTime">Starting Time</label>
+          <input type="datetime-local" name="startTime" <%if (isEdit) { %> value=<%= record.startTime %> <% } %> >
+        <label for="endTime">End Time</label>
+          <input type="datetime-local" name="endTime" <%if (isEdit) { %> value=<%= record.endTime %> <% } %> >
+        <label for="description">Description</label>
+          <input type="text" name="description" <%if (isEdit) { %> value="<%= record.description %>" <% } %> >
+        <button class= <%= isEdit ? 'bg-red' : 'bg-blue' %> type="submit" ><%= isEdit ? 'Update' : 'Add Record' %></button>
+      </form>
+    </div>
+  </body>
+
+</html>
