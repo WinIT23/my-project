@@ -18,7 +18,11 @@ const deleteActivity = async (req, res) => {
 
 const getActivity = async (req, res) => {
   const { id } = req.params;
-  const activity = await Activity.findById(id).populate('camera');
+  const doc = await Activity.findById(id).populate('camera');
+  const activity = {
+    ...doc._doc,
+    imageURL: `${process.env.HOST_URL}${doc.imageURL}`
+  };
   (activity)
     ? res.status(200).json(activity)
     : res.status(404).json({ message: 'Activity not found' });

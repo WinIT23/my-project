@@ -3,6 +3,7 @@
     <div>Location : <%= activity.camera.location.coordinates[0] %> <%= activity.camera.location.coordinates[1] %> </div>
     <div>Person Count : <%= activity.personCount %> </div>
     <form action="/activities/<%= activity._id %>/resolve" method="post">
+      <a class="btn" href="/activities/<%= activity._id %>">Go to Activity</a>
       <button class="bg-blue">Resolve</button>
     </form>
   </div>
