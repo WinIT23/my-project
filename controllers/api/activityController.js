@@ -41,9 +41,10 @@ const postActivity = async (req, res) => {
   updateRecordStatus();
 
   const { cameraId, personCount } = req.body;
+  const imageURL = `/uploads/${req.file.filename}`
   const time = new Date();
   let isInRecord = false;
-
+  
   const camera = await Camera
     .findById(cameraId);
   const records = await Record
@@ -60,6 +61,7 @@ const postActivity = async (req, res) => {
       personCount,
       time,
       isInRecord,
+      imageURL,
       isResolved: isInRecord
     });
     activity.save()
@@ -72,6 +74,15 @@ const postActivity = async (req, res) => {
     res.status(404).json({ message: 'Camera-ID Invalid' })
   }
 };
+
+const resolveActivity = (req, res) => {
+  const { id } = req.params;
+  Activity.findByIdAndUpdate(id,
+    { isResolved: true }
+  )
+    .then(_ => res.status(200).json({ message: 'Activity Resolved sucessfully' }))
+    .catch(_ => res.status(500).json({ message: 'Activity can\'t be updated' }));
+}
 
 const updateActivity = (req, res) => {
   const { id } = req.params;
@@ -94,5 +105,6 @@ export {
   getActivities,
   getActivity,
   postActivity,
+  resolveActivity,
   updateActivity
 };

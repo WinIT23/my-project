@@ -26,6 +26,7 @@ dotenv.config({ path: resolve() + '/.env' });
 const app = express();
 
 app.use(express.static('./public'));
+app.use('/uploads', express.static('./uploads'));
 app.use(express.json());
 app.set('view engine', 'ejs');
 app.use(urlencoded({ extended: false }));
@@ -46,6 +47,9 @@ app.use(function (_req, res, next) {
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
+
+// Server Running status check
+app.get('/api/health', (_req, res) => { res.status(200).json({ message: 'Server is running fine...' }) })
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);

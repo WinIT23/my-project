@@ -11,6 +11,7 @@
         <%= user.isMailVerified ? "Email is verified" : "Please Verify Mail" %>
       </p>
       <button <%=user.isMailVerified ? "hidden" : "" %> type="submit">Send Mail</button>
+      <a class="btn" href="/records">Show Records</a>
     </form>
     <hr>
   </div>

@@ -6,6 +6,7 @@ const Activity = new Schema({
   _id: Types.ObjectId,
   camera: { type: Types.ObjectId, ref: 'Cameras' },
   time: Date,
+  imageURL: String,
   personCount: Number,
   isResolved: Boolean,
   isInRecord: Boolean
