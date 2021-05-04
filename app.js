@@ -26,7 +26,7 @@ dotenv.config({ path: resolve() + '/.env' });
 const app = express();
 
 app.use(express.static('./public'));
-app.use('/uploads', express.static('./uploads'));
+app.use('/uploads', express.static(process.env.UPLOAD_DIR));
 app.use(express.json());
 app.set('view engine', 'ejs');
 app.use(urlencoded({ extended: false }));

@@ -1,3 +1,4 @@
+import { rename } from 'fs';
 import mongoose from 'mongoose';
 import Camera from '../../models/camera.js';
 import Record from '../../models/record.js';
@@ -44,8 +45,11 @@ const getActivities = async (_req, res) => {
 const postActivity = async (req, res) => {
   updateRecordStatus();
 
+  const id = mongoose.Types.ObjectId();
   const { cameraId, personCount } = req.body;
-  const imageURL = `/uploads/${req.file.filename}`
+  const oldFileName = `${req.file.filename}`;
+  const newFileName = `${ id }.${ req.file.filename.split('.')[1]}`
+  const imageURL = `/${process.env.UPLOAD_DIR}${newFileName}`
   const time = new Date();
   let isInRecord = false;
   
@@ -58,9 +62,16 @@ const postActivity = async (req, res) => {
     isInRecord = (time >= record.startTime && time <= record.endTime);
   });
 
+  rename(
+    process.env.UPLOAD_DIR + oldFileName,
+    process.env.UPLOAD_DIR + newFileName,
+    () => {
+      console.log(`New File Added : ${process.env.UPLOAD_DIR + newFileName}`);
+    })
+
   if (camera) {
     const activity = new Activity({
-      _id: mongoose.Types.ObjectId(),
+      _id: id,
       camera,
       personCount,
       time,
@@ -68,8 +79,9 @@ const postActivity = async (req, res) => {
       imageURL,
       isResolved: isInRecord
     });
+
     activity.save()
-      .then(_ => res.status(200).json({ message: 'Activity created sucessfully' }))
+      .then(_ => res.status(200).json({ message: 'Activity created sucessfully', url: `${process.env.HOST_URL}/api/activities/${id}` }))
       .catch(err => {
         console.log(err);
         res.status(500).json({ message: 'Activity can\'t be deleted' })
