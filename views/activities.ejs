@@ -1,3 +1,5 @@
+<%- include('./partials/header-map') %>
+
 <% cameraGroups.data?.forEach( cameraGroup => { %>
   <div class="card" style="width: auto;">
     <div>Location : <%= cameraGroup.location.coordinates[0] %> <%= cameraGroup.location.coordinates[1] %> </div>

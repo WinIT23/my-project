@@ -35,11 +35,30 @@ const getActivities = async (_req, res) => {
   const activities = await Activity
     .find({ isInRecord: false, isResolved: false })
     .populate('camera')
-    .sort([['time', 1]]);
-  (activities.length)
-    ? res.status(200).json(activities)
-    : res.status(404).json({ message: 'No Activities found' });
-  // Activity.find({ location: { $geoWithin: { $centerSphere: [[-73.93414657, 40.82302903], [miles] / 3963.2] } } })
+    .sort([['time', -1]]);
+
+  const cameras = await Camera
+    .find()
+
+  const cameraGroups = {
+    length: 0,
+    data: []
+  }
+
+  cameras.forEach(camera => {
+    const activityList = activities.filter(activity => String(activity.camera._id) === String(camera._id))
+    cameraGroups.data.push({
+      id: camera._id,
+      location: camera.location,
+      activities: activityList 
+    })
+  })
+  cameraGroups.length = cameraGroups.data.length
+  
+  if (cameraGroups.length)
+    res.status(200).json(cameraGroups)
+  else
+    res.status(404).json({ message: 'No Activities found' });
 };
 
 const postActivity = async (req, res) => {

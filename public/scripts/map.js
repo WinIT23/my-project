@@ -1,7 +1,7 @@
 let map;
 const BASE_URL = `${window.location.href}api`;
 let markers = [];
-let activities;
+let activities = [];
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -12,7 +12,15 @@ function initMap() {
 };
 
 axios.get(`${BASE_URL}/activities`).then(res => {
-    activities = res.data;
+    resp = res.data.data;
+    resp.forEach(group => {
+      activities.push({
+        cameraId: group.id,
+        location: group.location,
+        personCount: group.activities[0].personCount
+      })
+    })
+    console.log(activities);
     for (let i = 0; i < 2; i++) {
       zoomIn(map);
     }
@@ -28,7 +36,15 @@ setTimeout(_ =>
 
 const refreshMap = async () => {
   const res = await axios.get(`${BASE_URL}/activities`)
-  activities = res.data;
+  resp = res.data.data;
+  activities = []
+  resp.forEach(group => {
+    activities.push({
+      cameraId: group.id,
+      location: group.location,
+      personCount: group.activities[0].personCount
+    })
+  })
   addMarkersToArray();
   map.panTo(markers[markers.length - 1].getPosition());
 };
@@ -38,7 +54,7 @@ const addMarkersToArray = () => {
   markers.forEach(marker => marker.setMap(null));
   markers = [];
   activities.forEach(activity => {
-    const { coordinates } = activity.camera.location;
+    const { coordinates } = activity.location;
     const { personCount } = activity;
     const position = { lat: coordinates[0], lng: coordinates[1] };
     const marker = new google.maps.Marker({
