@@ -17,7 +17,7 @@ const deleteActivity = async (req, res) => {
 };
 
 const getActivity = async (req, res) => {
-  const { id } = req.params; 
+  const { id } = req.params;
   const doc = await Activity.findById(id).populate('camera');
   const activity = {
     ...doc._doc,
@@ -34,17 +34,58 @@ const getActivities = async (_req, res) => {
   const activities = await Activity
     .find({ isInRecord: false, isResolved: false })
     .populate('camera')
-    .sort([['time', 1]]);
-  (activities.length)
-    ? res.status(200).render('activities', { activities })
-    : res.status(404)
+    .sort([['time', -1]]);
+  const cameras = await Camera
+    .find()
+
+  const cameraGroups = {
+    length: 0,
+    data: []
+  }
+
+  cameras.forEach(camera => {
+    const activityList = activities.filter(activity => String(activity.camera._id) === String(camera._id))
+    cameraGroups.data.push({
+      id: camera._id,
+      location: camera.location,
+      activities: activityList
+    })
+  })
+  cameraGroups.length = cameraGroups.data.length
+
+
+  if (cameraGroups.length) {
+    console.log(cameraGroups);
+    res.status(200).render('activities', { cameraGroups })
+  }
+  else
+    res.status(404)
 };
 
 const getActivitiesList = async () => {
-  return await Activity
+  const activities = await Activity
     .find({ isInRecord: false, isResolved: false })
     .populate('camera')
-    .sort([['time', 1]]);
+    .sort([['time', -1]]);
+  const cameras = await Camera
+    .find()
+
+  const cameraGroups = {
+    length: 0,
+    data: []
+  }
+
+  cameras.forEach(camera => {
+    const activityList = activities.filter(activity => String(activity.camera._id) === String(camera._id))
+    cameraGroups.data.push({
+      id: camera._id,
+      location: camera.location,
+      activities: activityList
+    })
+  })
+  cameraGroups.length = cameraGroups.data.length
+
+  return cameraGroups
 };
 
 const postActivity = async (req, res) => {
