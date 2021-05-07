@@ -2,7 +2,7 @@
 <body>
   <div class="">
     <form class="frm" action="/auth/logout?_method=DELETE" method="POST">
-      <button id="logout" class="bg-red" type="submit">Log Out</button>
+      <button id="logout" class="my-btn bg-red" type="submit">Log Out</button>
     </form>
     <h1 class="title">Hi, <%= user?.name %>
     </h1>
@@ -11,24 +11,31 @@
         <%= user.isMailVerified ? "Email is verified" : "Please Verify Mail" %>
       </p>
       <button <%=user.isMailVerified ? "hidden" : "" %> type="submit">Send Mail</button>
-      <a class="btn" href="/records">Show Records</a>
+      <a class="my-btn" href="/records">Show Records</a>
     </form>
     <hr>
   </div>
+  <table>
+      <td class="column">
+        <div class="container-inline">
+          <div class="map-container">
+            <div id="map" style="display: inline-block;"></div>
+            <hr>
+            <button class="my-btn" id="show">Show</button>
+            <button class="my-btn" id="hide">Hide</button>
+            <button class="my-btn" id="refresh">Refresh</button>
+          </div>
+        </div>
+      </td>
+      <td class="column">
+        <div class="activity-container" style="float: right;">
+          <%- include('./partials/activities') %>
+        </div>
+      </td>
+  </table>
+    
+      
   
-  <div class="container-inline">
-    <div class="map-container">
-      <div id="map" style="display: inline-block;"></div>
-      <hr>
-      <button id="show">Show</button>
-      <button id="hide">Hide</button>
-      <button id="refresh">Refresh</button>
-    </div>
-
-    <div class="activity-container">
-      <%- include('./partials/activities') %>
-    </div>
-  </div>
 
   <script src="/scripts/map.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=<%= MAPS_API_KEY %>&callback=initMap&libraries=&v=weekly"></script>

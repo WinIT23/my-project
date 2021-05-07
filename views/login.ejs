@@ -1,15 +1,29 @@
-<h1>Login</h1>
-<%= (messages.error) ? messages.error : '' %>
-<form action="/auth/login" method="POST">
-  <div>
-    <label for="email">Email</label>
-    <input type="text" id="email" name="email" required>
-  </div>
-  <div>
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" required>
-  </div>
-  <button type="submit">Login</button>
+<%- include('./partials/header-map') %>
+<div class="card-login justify-content-center">
+  <h3>Login</h3>
+  <%= (messages.error) ? messages.error : '' %>
+  <form action="/auth/login" method="POST">
+      <div class="input-group mb-3">
+        <div class="input-group-append">
+          <span class="input-group-text"><i class="fas fa-user"></i></span>
+        </div>
+        <input type="text" class="form-control input_user" placeholder="Useremail" id="email" name="email" required>
+      </div>
+      <div class="input-group mb-2">
+        <div class="input-group-append">
+          <span class="input-group-text"><i class="fas fa-key"></i></span>
+        </div>
+        <input type="password" class="form-control input_pass" placeholder="Password" id="password" name="password" required>
+      </div>
+      <button type="submit"  class="my-btn float-right d-flex mt-3 login_container">
+        Login</button>
+  </form>
   <a href="/auth/reset">Forgot Password?</a>
-</form>
-<a href="/auth/register">Register</a>
+  <br>
+  <br>
+  <button class="my-btn d-flex justify-content-center mt-3 login_container">
+    <a href="/auth/register">Register</a>
+  </button>
+</div>
+
+

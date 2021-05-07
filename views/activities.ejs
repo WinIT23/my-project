@@ -8,8 +8,8 @@
       <div>Person Time : <%= activity.time %> </div>
       <div>Person Count : <%= activity.personCount %> </div>
       <form action="/activities/<%= activity._id %>/resolve" method="post">
-        <a class="btn" href="/activities/<%= activity._id %>">Go to Activity</a>
-        <button class="bg-blue">Resolve</button>
+        <a class="my-btn" href="/activities/<%= activity._id %>">Go to Activity</a>
+        <button class="my-btn bg-blue">Resolve</button>
       </form>
     </div>
     <% }) %>

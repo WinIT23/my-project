@@ -1,20 +1,23 @@
 <%- include('./partials/header-map') %>
 
   <body>
+    <a class="my-btn bg-red" href="/">Back</a>
+    <a class="my-btn bg-blue" href="/records/new">New</a>
     <div>
       <% records?.forEach( record => { %>
-        <div>Location : <span><%= record.location.coordinates[0] %> <%= record.location.coordinates[1] %></span>
+        <div class="card">
+          <div>Location : <span><%= record.location.coordinates[0] %> <%= record.location.coordinates[1] %></span>
+          </div>
+          <div>Start Time : <span><%= record.startTime %></span> </div>
+          <div>End Time : <span><%= record.endTime %></span> </div>
+          <div>Description: <span><%= record.description %></span></div>
+          <span id="my-btn-list">
+            <form class="frm" action="/records/<%= record._id %>?_method=DELETE" method="POST">
+              <a class="my-btn bg-blue" href="/records/<%= record._id %>/edit">Update</a>
+              <button class="my-btn bg-red" type="submit">Delete</button>
+            </form>
+          </span>
         </div>
-        <div>Start Time : <span><%= record.startTime %></span> </div>
-        <div>End Time : <span><%= record.endTime %></span> </div>
-        <div>Description: <span><%= record.description %></span></div>
-        <span id="btn-list">
-          <form class="frm" action="/records/<%= record._id %>?_method=DELETE" method="POST">
-            <a class="btn bg-blue" href="/records/<%= record._id %>/edit">Update</a>
-            <button class="bg-red" type="submit">Delete</button>
-          </form>
-        </span>
-        <hr>
         <% }) %>
     </div>
   </body>

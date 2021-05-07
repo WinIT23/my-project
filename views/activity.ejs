@@ -1,15 +1,24 @@
 <%- include('./partials/header-map') %>
 
   <body>
-    <div>
-      <label for="location">Location</label> 
-      <%= activity.camera.location.coordinates[0] %> <%= activity.camera.location.coordinates[1] %>
-      <label for="count">Person Count</label>
+    <a class="my-btn bg-red" href="/">Back</a>
+    <div class="card" style="width: 60%;">
+      <div>
+        <label for="location">Location: </label> 
+        <%= activity.camera.location.coordinates[0] %> <%= activity.camera.location.coordinates[1] %>
+      </div>
+      <div>
+        <label for="count">Person Count: </label>
         <%= activity.personCount %>
-      <label for="activity-time">Activity Time</label>
+      </div>
+      <div>
+        <label for="activity-time">Activity Time: </label>
         <%= activity.time %>
-      <label for="image">Image</label>
+      </div>
+      <div>
+        <label for="image">Image: </label>
         <img src="<%= activity.imageURL %>" alt="">
+      </div>
     </div>
   </body>
 
